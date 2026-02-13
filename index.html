@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -36,7 +36,7 @@
             position: relative;
         }
 
-        h1 { color: var(--dark-pink); font-size: 1.6rem; margin-bottom: 20px; min-height: 60px; transition: all 0.3s ease; }
+        h1 { color: var(--dark-pink); font-size: 1.6rem; margin-bottom: 20px; min-height: 60px; }
 
         .image-area {
             width: 100%;
@@ -72,6 +72,7 @@
             cursor: pointer;
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
         }
 
         #yesBtn { background: var(--heart-red); color: white; z-index: 2; }
@@ -106,12 +107,12 @@
 <body>
 
     <div id="container">
-        <h1 id="mainText">Will you be my Valentine shuttumaniii?</h1>
+        <h1 id="mainText">Will you be my Valentine shuttumani ?</h1>
         
         <div class="image-area">
-            <img src="happy.jpg" id="happyImg" class="display-img" style="display: block;">
-            <img src="angry.jpg" id="angryImg" class="display-img">
-            <img src="together.jpg" id="togetherImg" class="display-img">
+            <img src="./Happy.jpg" id="happyImg" class="display-img" style="display: block;">
+            <img src="./Angry.jpg" id="angryImg" class="display-img">
+            <img src="./Together.jpg" id="togetherImg" class="display-img">
         </div>
 
         <div class="btn-container" id="controls">
@@ -132,22 +133,25 @@
         let noClicks = 0;
         let noScale = 1;
 
-        // NO BUTTON: Teleports around and shrinks
+        // NO BUTTON BEHAVIOR: Teleports and shrinks
         noBtn.addEventListener('click', () => {
             noClicks++;
             
+            // Shrink the button
             noScale -= 0.15;
             if (noScale < 0.45) noScale = 0.45;
             noBtn.style.transform = `scale(${noScale})`;
 
-            // Move to random screen position
-            const x = Math.random() * (window.innerWidth - 120);
-            const y = Math.random() * (window.innerHeight - 60);
+            // Teleport to random screen position
+            const padding = 20;
+            const x = Math.random() * (window.innerWidth - 120 - padding);
+            const y = Math.random() * (window.innerHeight - 60 - padding);
             
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
 
+            // After 3rd click, show Angry face
             if (noClicks >= 3) {
                 happyImg.style.display = 'none';
                 angryImg.style.display = 'block';
@@ -155,19 +159,19 @@
             }
         });
 
-        // YES BUTTON: Removes buttons and shows together photo
+        // YES BUTTON BEHAVIOR: Shows success and removes buttons
         yesBtn.addEventListener('click', () => {
             mainText.innerText = "I love you so much! ❤️";
             
-            // Swap to together image
+            // Show together image
             happyImg.style.display = 'none';
             angryImg.style.display = 'none';
             togetherImg.style.display = 'block';
             
-            // REMOVE BUTTONS COMPLETELY
+            // REMOVE the buttons entirely from the page
             controls.remove();
             
-            // Celebration
+            // Start heart celebration
             setInterval(createHeart, 250);
         });
 
@@ -185,4 +189,3 @@
     </script>
 </body>
 </html>
-
