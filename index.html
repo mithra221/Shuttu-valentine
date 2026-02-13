@@ -1,4 +1,4 @@
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
             align-items: center;
             background: linear-gradient(135deg, var(--soft-pink), var(--warm-rose));
             overflow: hidden;
-            touch-action: manipulation;
+            touch-action: none; 
         }
 
         #container {
@@ -33,9 +33,10 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
             z-index: 10;
+            position: relative;
         }
 
-        h1 { color: var(--dark-pink); font-size: 1.6rem; margin-bottom: 20px; min-height: 60px; }
+        h1 { color: var(--dark-pink); font-size: 1.5rem; margin-bottom: 20px; min-height: 80px; }
 
         .image-area {
             width: 100%;
@@ -59,7 +60,7 @@
             display: flex;
             justify-content: center;
             gap: 25px;
-            height: 50px;
+            height: 60px;
             position: relative;
         }
 
@@ -71,9 +72,12 @@
             cursor: pointer;
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 20;
         }
 
-        #yesBtn { background: var(--heart-red); color: white; z-index: 5; }
+        #yesBtn { background: var(--heart-red); color: white; }
         .pulse { animation: pulse-animation 1.2s infinite; }
         @keyframes pulse-animation {
             0% { transform: scale(1); }
@@ -81,17 +85,14 @@
             100% { transform: scale(1); }
         }
 
-        #noBtn {
-            background: #f0f0f0;
-            color: #666;
-            transition: all 0.2s ease;
-        }
+        #noBtn { background: #f0f0f0; color: #666; transition: transform 0.2s ease; }
 
         #loveMessage {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--dark-pink);
             margin-top: 15px;
             font-weight: bold;
+            line-height: 1.5;
             display: none;
         }
 
@@ -109,10 +110,10 @@
 </head>
 <body>
 
-    <audio id="bgMusic" src="./music.mp3" loop></audio>
+    <audio id="bgMusic" src="./music.mp3" preload="auto" loop></audio>
 
     <div id="container">
-        <h1 id="mainText">Will you be my Valentine shuttu manii?</h1>
+        <h1 id="mainText">Will you be my valentine shuttumani?</h1>
         
         <div class="image-area">
             <img src="./Happy.jpg" id="happyImg" class="display-img" style="display: block;">
@@ -139,43 +140,48 @@
         const loveMessage = document.getElementById('loveMessage');
         const bgMusic = document.getElementById('bgMusic');
 
-        let noClicks = 0;
-        let noScale = 1;
-
-        noBtn.addEventListener('click', () => {
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
             noClicks++;
-            noScale -= 0.15;
-            if (noScale < 0.45) noScale = 0.45;
-            noBtn.style.transform = `scale(${noScale})`;
-            noBtn.style.position = 'fixed';
+            let noScale = Math.max(0.4, 1 - (noClicks * 0.15));
             
-            const x = Math.random() * (window.innerWidth - 120);
-            const y = Math.random() * (window.innerHeight - 60);
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            
+            noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
+            noBtn.style.transform = `scale(${noScale})`;
 
             if (noClicks >= 3) {
                 happyImg.style.display = 'none';
                 angryImg.style.display = 'block';
-                mainText.innerText = "addiii veno 😤yes njekada";
+                mainText.innerText = "addii veno😤 click yes shuttu";
             }
         });
 
-        yesBtn.addEventListener('click', () => {
-            mainText.innerText = "Happy Valentine's Day shuttu ❤️";
-            
-            // Start the music!
-            bgMusic.play().catch(e => console.log("Audio failed to play:", e));
+        let noClicks = 0;
 
+        yesBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // 1. Play Audio
+            bgMusic.play().catch(err => console.log("Audio failed:", err));
+
+            // 2. Change Text
+            mainText.innerText = "Happy Valentine's Day Shuttu ❤️"; 
+
+            // 3. Show Together Image
             happyImg.style.display = 'none';
             angryImg.style.display = 'none';
             togetherImg.style.display = 'block';
             
-            controls.remove();
-            
+            // 4. Clean up UI
+            controls.innerHTML = ''; 
             loveMessage.style.display = 'block';
-            typeWriter(unakku eppadinnu theriyala.. aana enaku unna thaan romba pudikum..appom, ippom, eppovumee..naa appadiyellaam vittat poyida mudiyaadh);
-
+            
+            // 5. Start Typewriter & Hearts
+            typeWriter("unakku eppadinnu theriyala.. aana enaku unna thaan romba pudikum..appom, ippom, eppovumee..naa appadiyellaam vittat poyida mudiyaadh");
             setInterval(createHeart, 250);
         });
 
@@ -200,3 +206,5 @@
     </script>
 </body>
 </html>
+
+
