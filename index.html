@@ -1,6 +1,4 @@
-  
-
-<!DOCTYPE html>
+                    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -167,7 +165,6 @@
         yesBtn.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // Forces the browser to load and play Music.mp3
             bgMusic.play().catch(err => {
                 console.log("Audio failed to play. Make sure Music.mp3 is uploaded correctly.");
             });
@@ -181,6 +178,7 @@
             controls.innerHTML = ''; 
             loveMessage.style.display = 'block';
             
+            // Typewriter call
             typeWriter("unakku eppadinnu theriyala.. aana enaku unna thaan romba pudikum..appom, ippom, eppovumee..naa appadiyellaam vittat poyida mudiyaadh");
             setInterval(createHeart, 250);
         });
@@ -188,22 +186,7 @@
         function typeWriter(text, i = 0) {
             if (i < text.length) {
                 loveMessage.innerHTML += text.charAt(i);
-                setTimeout(() => typeWriter(text, i + 1), 60);
+                // Slower speed: changed 60 to 100ms
+                setTimeout(() => typeWriter(text, i + 1), 100); 
             }
         }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-particle');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '100vh';
-            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 3000);
-        }
-    </script>
-</body>
-</html>
-
