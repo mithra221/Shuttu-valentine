@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,12 +12,7 @@
             --dark-pink: #d4145a;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Arial', sans-serif; }
 
         body {
             height: 100vh;
@@ -30,72 +25,23 @@
         }
 
         #container {
-            width: 90%;
-            max-width: 400px;
-            background: rgba(255, 255, 255, 0.9);
+            width: 85%;
+            max-width: 350px;
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
-            position: relative;
             z-index: 10;
-            transition: all 0.5s ease;
-        }
-
-        h1 {
-            color: var(--dark-pink);
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            line-height: 1.2;
-        }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            align-items: center;
-            min-height: 100px;
             position: relative;
         }
 
-        button {
-            padding: 15px 25px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.2s, background 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        #yesBtn {
-            background: var(--heart-red);
-            color: white;
-            z-index: 5;
-        }
-
-        .pulse {
-            animation: pulse-animation 1.5s infinite;
-        }
-
-        @keyframes pulse-animation {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        #noBtn {
-            background: #eee;
-            color: #555;
-            position: relative;
-            transition: all 0.2s ease;
-        }
+        h1 { color: var(--dark-pink); font-size: 1.6rem; margin-bottom: 20px; min-height: 60px; transition: all 0.3s ease; }
 
         .image-area {
-            margin-top: 20px;
-            height: 200px;
+            width: 100%;
+            height: 250px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -104,53 +50,71 @@
         .display-img {
             max-width: 100%;
             max-height: 100%;
-            border-radius: 15px;
-            display: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            object-fit: cover;
+            border-radius: 20px;
+            display: none; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 5px solid white;
         }
 
-        /* Celebration Elements */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: #ffd700;
-            top: -10px;
-            z-index: 1;
-            animation: fall linear forwards;
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            height: 50px;
+            position: relative;
         }
 
-        .heart {
+        button {
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        #yesBtn { background: var(--heart-red); color: white; z-index: 2; }
+        
+        .pulse { animation: pulse-animation 1.2s infinite; }
+        @keyframes pulse-animation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        #noBtn {
+            background: #f0f0f0;
+            color: #666;
+            position: absolute; 
+            transition: all 0.2s ease;
+            z-index: 3;
+        }
+
+        .heart-particle {
             position: absolute;
-            color: var(--heart-red);
-            font-size: 20px;
             pointer-events: none;
-            z-index: 0;
-            animation: float 3s ease-in infinite;
+            animation: fly 3s linear forwards;
+            z-index: 1;
         }
-
-        @keyframes fall {
-            to { transform: translateY(100vh) rotate(360deg); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        @keyframes fly {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
     <div id="container">
-        <h1 id="mainText">Will you be my Valentine shuttumani ?</h1>
+        <h1 id="mainText">Will you be my Valentine shuttumaniii?</h1>
         
         <div class="image-area">
-           <img src="Angry.jpg" id="angryImg" class="display-img" alt="Angry">
-            <img src="Together.jpg" id="togetherImg" class="display-img" alt="Together">
+            <img src="happy.jpg" id="happyImg" class="display-img" style="display: block;">
+            <img src="angry.jpg" id="angryImg" class="display-img">
+            <img src="together.jpg" id="togetherImg" class="display-img">
         </div>
 
-        <div class="btn-container">
+        <div class="btn-container" id="controls">
             <button id="yesBtn" class="pulse">YES ❤️</button>
             <button id="noBtn">NO 😏</button>
         </div>
@@ -160,77 +124,65 @@
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const mainText = document.getElementById('mainText');
+        const happyImg = document.getElementById('happyImg');
         const angryImg = document.getElementById('angryImg');
         const togetherImg = document.getElementById('togetherImg');
-        const happyImg = document.getElementById('happyImg');
+        const controls = document.getElementById('controls');
 
-        let noClickCount = 0;
+        let noClicks = 0;
         let noScale = 1;
 
-        // YES BUTTON LOGIC
-        yesBtn.addEventListener('click', () => {
-            mainText.innerHTML = "Yay! I love you! ❤️";
-            
-            // Show together image, hide others
-            togetherImg.style.display = 'block';
-            angryImg.style.display = 'none';
-            happyImg.style.display = 'none';
-            
-            // Visual flair
-            createConfetti();
-            createHearts();
-            yesBtn.classList.add('pulse');
-            noBtn.style.display = 'none';
-        });
-
-        // NO BUTTON LOGIC
+        // NO BUTTON: Teleports around and shrinks
         noBtn.addEventListener('click', () => {
-            noClickCount++;
+            noClicks++;
             
-            // Shrink button
-            noScale -= 0.2;
+            noScale -= 0.15;
+            if (noScale < 0.45) noScale = 0.45;
             noBtn.style.transform = `scale(${noScale})`;
-            
-            // Move button randomly
-            const x = Math.random() * (window.innerWidth - 100) - (window.innerWidth / 2 - 50);
-            const y = Math.random() * (window.innerHeight - 100) - (window.innerHeight / 2 - 50);
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = `${x}px`;
-            noBtn.style.top = `${y}px`;
 
-            // Third click logic
-            if (noClickCount >= 3) {
+            // Move to random screen position
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 60);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+
+            if (noClicks >= 3) {
+                happyImg.style.display = 'none';
                 angryImg.style.display = 'block';
-                mainText.innerHTML = "Wait... are you sure? 😡";
+                mainText.innerText = "Don't you dare! 😡";
             }
         });
 
-        // Effect Generators
-        function createConfetti() {
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
-                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                confetti.style.opacity = Math.random();
-                document.body.appendChild(confetti);
-                setTimeout(() => confetti.remove(), 5000);
-            }
-        }
+        // YES BUTTON: Removes buttons and shows together photo
+        yesBtn.addEventListener('click', () => {
+            mainText.innerText = "I love you so much! ❤️";
+            
+            // Swap to together image
+            happyImg.style.display = 'none';
+            angryImg.style.display = 'none';
+            togetherImg.style.display = 'block';
+            
+            // REMOVE BUTTONS COMPLETELY
+            controls.remove();
+            
+            // Celebration
+            setInterval(createHeart, 250);
+        });
 
-        function createHearts() {
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerHTML = '❤️';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.top = '100vh';
-                heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
-                document.body.appendChild(heart);
-                setTimeout(() => heart.remove(), 4000);
-            }, 300);
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-particle');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
         }
     </script>
 </body>
 </html>
+
