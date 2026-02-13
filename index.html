@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -58,7 +58,7 @@
         .btn-container {
             display: flex;
             justify-content: center;
-            gap: 20px; /* Space between buttons at the start */
+            gap: 25px;
             height: 50px;
             position: relative;
         }
@@ -109,13 +109,15 @@
 </head>
 <body>
 
+    <audio id="bgMusic" src="./music.mp3" loop></audio>
+
     <div id="container">
-        <h1 id="mainText">Will you be my Valentine shuttumaniii ?</h1>
+        <h1 id="mainText">Will you be my Valentine shuttu manii?</h1>
         
         <div class="image-area">
-            <img src="./Together.jpg" id="togetherImg" class="display-img" style="display: block;">
+            <img src="./Happy.jpg" id="happyImg" class="display-img" style="display: block;">
             <img src="./Angry.jpg" id="angryImg" class="display-img">
-            <img src="./Happy.jpg" id="happyImg" class="display-img">
+            <img src="./Together.jpg" id="togetherImg" class="display-img">
         </div>
 
         <div id="loveMessage"></div>
@@ -135,18 +137,16 @@
         const togetherImg = document.getElementById('togetherImg');
         const controls = document.getElementById('controls');
         const loveMessage = document.getElementById('loveMessage');
+        const bgMusic = document.getElementById('bgMusic');
 
         let noClicks = 0;
         let noScale = 1;
 
-        // NO BUTTON BEHAVIOR
         noBtn.addEventListener('click', () => {
             noClicks++;
             noScale -= 0.15;
             if (noScale < 0.45) noScale = 0.45;
             noBtn.style.transform = `scale(${noScale})`;
-
-            // On the first click, switch to fixed positioning for teleporting
             noBtn.style.position = 'fixed';
             
             const x = Math.random() * (window.innerWidth - 120);
@@ -155,28 +155,26 @@
             noBtn.style.top = y + 'px';
 
             if (noClicks >= 3) {
-                togetherImg.style.display = 'none';
+                happyImg.style.display = 'none';
                 angryImg.style.display = 'block';
-                mainText.innerText = "addiiii😤 maryadhak yes njekiko";
+                mainText.innerText = "addiii veno 😤yes njekada";
             }
         });
 
-        // YES BUTTON BEHAVIOR
         yesBtn.addEventListener('click', () => {
-            mainText.innerText = " Happy Valentine's Day shuttu❤️";
+            mainText.innerText = "Happy Valentine's Day shuttu ❤️";
             
-            togetherImg.style.display = 'none';
+            // Start the music!
+            bgMusic.play().catch(e => console.log("Audio failed to play:", e));
+
+            happyImg.style.display = 'none';
             angryImg.style.display = 'none';
-            happyImg.style.display = 'block';
+            togetherImg.style.display = 'block';
             
             controls.remove();
             
-            // New Custom Message
             loveMessage.style.display = 'block';
-            typeWriter( “You are the light of my loneliness... 
-                Love of my heart... 
-                Tune of my song... 
-                Dew of my desert...");
+            typeWriter(unakku eppadinnu theriyala.. aana enaku unna thaan romba pudikum..appom, ippom, eppovumee..naa appadiyellaam vittat poyida mudiyaadh);
 
             setInterval(createHeart, 250);
         });
