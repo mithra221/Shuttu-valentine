@@ -1,3 +1,5 @@
+  
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,6 +142,8 @@
         const loveMessage = document.getElementById('loveMessage');
         const bgMusic = document.getElementById('bgMusic');
 
+        let noClicks = 0;
+
         noBtn.addEventListener('click', (e) => {
             e.preventDefault();
             noClicks++;
@@ -160,27 +164,23 @@
             }
         });
 
-        let noClicks = 0;
-
         yesBtn.addEventListener('click', (e) => {
             e.preventDefault();
             
-            // 1. Play Audio
-            bgMusic.play().catch(err => console.log("Audio failed:", err));
+            // Forces the browser to load and play Music.mp3
+            bgMusic.play().catch(err => {
+                console.log("Audio failed to play. Make sure Music.mp3 is uploaded correctly.");
+            });
 
-            // 2. Change Text
             mainText.innerText = "Happy Valentine's Day Shuttu ❤️"; 
 
-            // 3. Show Together Image
             happyImg.style.display = 'none';
             angryImg.style.display = 'none';
             togetherImg.style.display = 'block';
             
-            // 4. Clean up UI
             controls.innerHTML = ''; 
             loveMessage.style.display = 'block';
             
-            // 5. Start Typewriter & Hearts
             typeWriter("unakku eppadinnu theriyala.. aana enaku unna thaan romba pudikum..appom, ippom, eppovumee..naa appadiyellaam vittat poyida mudiyaadh");
             setInterval(createHeart, 250);
         });
@@ -206,5 +206,4 @@
     </script>
 </body>
 </html>
-
 
