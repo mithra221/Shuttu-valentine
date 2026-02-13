@@ -33,7 +33,6 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             text-align: center;
             z-index: 10;
-            position: relative;
         }
 
         h1 { color: var(--dark-pink); font-size: 1.6rem; margin-bottom: 20px; min-height: 60px; }
@@ -59,7 +58,7 @@
         .btn-container {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px; /* Space between buttons at the start */
             height: 50px;
             position: relative;
         }
@@ -72,11 +71,9 @@
             cursor: pointer;
             font-weight: bold;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
         }
 
-        #yesBtn { background: var(--heart-red); color: white; z-index: 2; }
-        
+        #yesBtn { background: var(--heart-red); color: white; z-index: 5; }
         .pulse { animation: pulse-animation 1.2s infinite; }
         @keyframes pulse-animation {
             0% { transform: scale(1); }
@@ -87,9 +84,15 @@
         #noBtn {
             background: #f0f0f0;
             color: #666;
-            position: absolute; 
             transition: all 0.2s ease;
-            z-index: 3;
+        }
+
+        #loveMessage {
+            font-size: 1.2rem;
+            color: var(--dark-pink);
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
         }
 
         .heart-particle {
@@ -107,13 +110,15 @@
 <body>
 
     <div id="container">
-        <h1 id="mainText">Will you be my Valentine shuttumani ?</h1>
+        <h1 id="mainText">Will you be my Valentine shuttumaniii ?</h1>
         
         <div class="image-area">
-            <img src="./Happy.jpg" id="happyImg" class="display-img" style="display: block;">
+            <img src="./Together.jpg" id="togetherImg" class="display-img" style="display: block;">
             <img src="./Angry.jpg" id="angryImg" class="display-img">
-            <img src="./Together.jpg" id="togetherImg" class="display-img">
+            <img src="./Happy.jpg" id="happyImg" class="display-img">
         </div>
+
+        <div id="loveMessage"></div>
 
         <div class="btn-container" id="controls">
             <button id="yesBtn" class="pulse">YES ❤️</button>
@@ -129,51 +134,56 @@
         const angryImg = document.getElementById('angryImg');
         const togetherImg = document.getElementById('togetherImg');
         const controls = document.getElementById('controls');
+        const loveMessage = document.getElementById('loveMessage');
 
         let noClicks = 0;
         let noScale = 1;
 
-        // NO BUTTON BEHAVIOR: Teleports and shrinks
+        // NO BUTTON BEHAVIOR
         noBtn.addEventListener('click', () => {
             noClicks++;
-            
-            // Shrink the button
             noScale -= 0.15;
             if (noScale < 0.45) noScale = 0.45;
             noBtn.style.transform = `scale(${noScale})`;
 
-            // Teleport to random screen position
-            const padding = 20;
-            const x = Math.random() * (window.innerWidth - 120 - padding);
-            const y = Math.random() * (window.innerHeight - 60 - padding);
-            
+            // On the first click, switch to fixed positioning for teleporting
             noBtn.style.position = 'fixed';
+            
+            const x = Math.random() * (window.innerWidth - 120);
+            const y = Math.random() * (window.innerHeight - 60);
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
 
-            // After 3rd click, show Angry face
             if (noClicks >= 3) {
-                happyImg.style.display = 'none';
+                togetherImg.style.display = 'none';
                 angryImg.style.display = 'block';
-                mainText.innerText = "Don't you dare! 😡";
+                mainText.innerText = "Don't click NO! 😤";
             }
         });
 
-        // YES BUTTON BEHAVIOR: Shows success and removes buttons
+        // YES BUTTON BEHAVIOR
         yesBtn.addEventListener('click', () => {
-            mainText.innerText = "I love you so much! ❤️";
+            mainText.innerText = "YAY! Happy Valentine's Day! ❤️";
             
-            // Show together image
-            happyImg.style.display = 'none';
+            togetherImg.style.display = 'none';
             angryImg.style.display = 'none';
-            togetherImg.style.display = 'block';
+            happyImg.style.display = 'block';
             
-            // REMOVE the buttons entirely from the page
             controls.remove();
             
-            // Start heart celebration
+            // New Custom Message
+            loveMessage.style.display = 'block';
+            typeWriter("I can't wait to hold you in my arms");
+
             setInterval(createHeart, 250);
         });
+
+        function typeWriter(text, i = 0) {
+            if (i < text.length) {
+                loveMessage.innerHTML += text.charAt(i);
+                setTimeout(() => typeWriter(text, i + 1), 60);
+            }
+        }
 
         function createHeart() {
             const heart = document.createElement('div');
